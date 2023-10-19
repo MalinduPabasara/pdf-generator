@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Prewk\Result;
 use Prewk\Result\Ok;
 
 class CustomerService
@@ -16,12 +15,15 @@ class CustomerService
     public function addCustomer(Request $request)
     {
 
-        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+        $extension = $request->image->getClientOriginalExtension();
+
+        $newImageName = time() . '-' . $request->name . '.' . $extension;
+
         $request->image->move(storage_path('app/public/images'), $newImageName);
 
         $customer = new Customer();
 
-        $customer->image = $request->newImageName;
+        $customer->image = $newImageName;
         $customer->name = $request->name;
         $customer->address = $request->address;
         $customer->nic = $request->nic;
@@ -29,9 +31,6 @@ class CustomerService
 
         $customer->save();
 
-        return new Ok($customer);
-
+        return $customer;
     }
-
-
 }

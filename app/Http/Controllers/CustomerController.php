@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CustomerService;
+use App\Models\Customer;
+use PDF;
 
 class CustomerController extends Controller
 {
@@ -18,7 +20,7 @@ class CustomerController extends Controller
         $this->customerService = $customerService;
     }
 
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -29,7 +31,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image'=>'required',
+            'image' => 'required',
             'name' => 'required|string',
             'address' => 'required',
             'nic' => 'required',
@@ -38,7 +40,7 @@ class CustomerController extends Controller
 
         $result = $this->customerService->addCustomer($request);
 
-        return response()->json($result, 201);
+        return back();
     }
 
     /**
@@ -49,7 +51,19 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        
-    }
+        $customers = Customer::find($id);
 
+        $data = [
+            'image' => $customers->image,
+            'name' => $customers->name,
+            'address' => $customers->address,
+            'nic' => $customers->nic,
+            'email' => $customers->email,
+        ];
+
+        $pdf = PDF::loadView('pdf', $data);
+
+        return $pdf->download('customer.pdf');
+        // return response()->json($customers);
+    }
 }
