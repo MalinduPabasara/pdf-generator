@@ -9,13 +9,13 @@
     </head>
     <body>
         
-        <h1>Hello World!</h1>
+        <h1>My PDF</h1>
+
         <h1>{{ $name }}</h1>
         <p>{{ $address }}</p>
         <p>{{ $nic }}</p>
         <p>{{ $email }}</p>
-        {{-- <img src="{{ public_path('{{ $image }}') }}" style="width: 200px; height:200px" alt=""> --}}
-        {{-- <img src="{{ storage_path('app/public/{{ $image }}') }}" style="width: 200px; height: 200px"> --}}
+
        <br>
         <img src="{{ storage_path('app/public/images/' . $image) }}" style="width: 200px; height: 200px">
 

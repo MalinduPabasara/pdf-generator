@@ -21,7 +21,6 @@ class CustomerController extends Controller
     }
 
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -64,6 +63,5 @@ class CustomerController extends Controller
         $pdf = PDF::loadView('pdf', $data);
 
         return $pdf->download('customer.pdf');
-        // return response()->json($customers);
     }
 }

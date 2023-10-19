@@ -16,7 +16,7 @@ use App\Http\Controllers\CustomerController;
 */
 
 Route::post('customer', [CustomerController::class, 'store']);
-Route::get('customer/{id}', [CustomerController::class, 'show']);
+Route::get('customer/{id}', [CustomerController::class, 'show'])->name('customerPdf');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -53,6 +53,33 @@
             <input style="color: black;background:greenyellow; " type="submit" id="add-button" value="Submit">
         </th>
     </form>
+
+    <br>
+
+    <th>
+        <th>
+               Enter Customer ID :
+        </th>
+        <th>
+            <input type="text" name="customer_id" id="customer_id" placeholder="ID">
+        </th>
+        
+        <a style="color: rgb(10, 32, 161)" href="#" id="download-link">Download PDF</a>
+    </th>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            $('#customer_id').on('input', function () {
+                var customerId = $(this).val(); 
+                var downloadLink = '{{ route('customerPdf', ['id' => 'CUSTOMER_ID']) }}';
+                downloadLink = downloadLink.replace('CUSTOMER_ID', customerId);
     
+                $('#download-link').attr('href', downloadLink);
+            });
+        });
+    </script>
 </body>
 </html>
